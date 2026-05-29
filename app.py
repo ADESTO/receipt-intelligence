@@ -3,6 +3,7 @@ os.environ["OMP_NUM_THREADS"] = "1"
 os.environ["MKL_NUM_THREADS"] = "1"
 os.environ["FLAGS_use_mkldnn"] = "0"
 os.environ["FLAGS_call_stack_level"] = "2"
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 import re
 import json
@@ -239,12 +240,29 @@ processor, layoutlm_model, id2label = load_layoutlm()
 
 @st.cache_resource
 def load_ocr():
+    """
+    PaddleOCR 2.8.0 + PaddlePaddle 3.0.0 compatible loader.
+    Uses CPU-safe arguments only to avoid deprecated/incompatible parameters.
+    """
     import paddle
+
     paddle.set_device("cpu")
+
     return PaddleOCR(
-        use_angle_cls=False, lang='en', use_gpu=False,
-        show_log=False, cpu_threads=1, enable_mkldnn=False,
-        rec_batch_num=1, det_db_score_mode='slow',
+        lang="en",
+        use_angle_cls=False,
+        use_gpu=False,
+        show_log=False,
+        enable_mkldnn=False,
+        cpu_threads=1,
+        det_limit_side_len=960,
+        det_db_thresh=0.3,
+        det_db_box_thresh=0.6,
+        det_db_unclip_ratio=1.5,
+        max_batch_size=1,
+        use_dilation=False,
+        rec_batch_num=1,
+        cls_batch_num=1,
     )
 
 ocr = load_ocr()
