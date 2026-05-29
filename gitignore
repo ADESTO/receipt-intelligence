@@ -1,0 +1,42 @@
+# Environment
+.env
+*.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Jupyter / Colab
+.ipynb_checkpoints/
+*.ipynb
+
+# Model weights (too large for GitHub — store on Drive or HuggingFace)
+/model/
+*.bin
+*.safetensors
+*.pt
+*.pth
+
+# Receipt images and data (private user data)
+dashboard_uploads/
+inference_results/
+*.json
+*.csv
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Streamlit
+.streamlit/secrets.toml

@@ -1,0 +1,7 @@
+# System packages required by PaddleOCR and OpenCV on HF Spaces (Ubuntu)
+libgl1-mesa-glx
+libglib2.0-0
+libsm6
+libxext6
+libxrender-dev
+libgomp1
